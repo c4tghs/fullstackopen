@@ -20,13 +20,18 @@ const App =() => {
     setSearchName(event.target.value)
   }
 
+  const showCountry = (event) => {
+    event.preventDefault()
+    setSearchName(event.target.value)
+  }
+
 
   return (
     <div>
       <TextField text='find countries' inputValue={searchName} handleChange={handleChange}/>
 
       <div>
-        <Countries countries={countries} searchName={searchName} />
+        <Countries countries={countries} searchName={searchName} showCountry={showCountry}/>
       </div>
 
     </div>    

@@ -1,7 +1,7 @@
 import React from "react";
 import Country from "./Country";
 
-const Countries  = ({countries, searchName}) => {
+const Countries  = ({countries, searchName,showCountry}) => {
 
     const filteredCountries = countries.filter(country =>
         country.name.common.toLowerCase().includes(searchName.toLowerCase())
@@ -22,6 +22,7 @@ const Countries  = ({countries, searchName}) => {
             filteredCountries.map(country => 
                 <div key={country.name.common}>
                     <span>{country.name.common}</span>
+                    <button value={country.name.common} onClick={showCountry}>show</button>
                 </div>
             )
         )
