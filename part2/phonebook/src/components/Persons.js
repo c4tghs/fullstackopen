@@ -1,7 +1,7 @@
 import React from "react";
 import Person from "./Person";
 
-const Persons = ({persons, searchName}) => {
+const Persons = ({persons, searchName, remoteEntry}) => {
     return (
         <div>
             <table>
@@ -10,7 +10,7 @@ const Persons = ({persons, searchName}) => {
                         persons.map((person) => {
                             if (searchName.length === 0 || person.name.search(searchName) !== -1) {
                                 return (
-                                  <Person key={person.name} person={person} />
+                                  <Person key={person.name} person={person} removeEntry={remoteEntry} />
                                 )
                             }
                             else {
