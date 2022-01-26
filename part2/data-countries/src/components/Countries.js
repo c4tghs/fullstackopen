@@ -1,7 +1,7 @@
 import React from "react";
 import Country from "./Country";
 
-const Countries  = ({countries, searchName,showCountry}) => {
+const Countries  = ({countries, searchName,showCountry, handleCountryChange, currentWeather}) => {
 
     const filteredCountries = countries.filter(country =>
         country.name.common.toLowerCase().includes(searchName.toLowerCase())
@@ -13,8 +13,11 @@ const Countries  = ({countries, searchName,showCountry}) => {
         )
     }
     else if(filteredCountries.length ===  1){
+        handleCountryChange(filteredCountries[0].capital[0])
         return(
-            <Country country={filteredCountries[0]}/>
+            <div>
+                <Country country={filteredCountries[0]} currentWeather={currentWeather}/>
+            </div>
         )
     }
     else if(filteredCountries.length <= 10){
