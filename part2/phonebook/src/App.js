@@ -4,13 +4,15 @@ import PersonForm from './components/PersonForm'
 import Title from './components/Title'
 import Filter from './components/Filter'
 import personService from './services/persons'
-
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+  const [notification, setNotification] = useState(null)
+  const [notificationType, setNoticationType] = useState(null);
 
   useEffect(() => {
     personService
@@ -18,11 +20,24 @@ const App = () => {
     .then(initialPersons => {
       setPersons(initialPersons)
     })
+    .catch(error => {
+      showMessage("Could not retrieve data",false)
+    })
   }, [])
 
 
   const handleChange = (func) => (event) => {
     func(event.target.value)
+  }
+
+  const showMessage =(message, notificationType=true) => {
+    setNotification(message);
+    setNoticationType(notificationType)
+
+    setTimeout(() => {
+      setNotification(null);
+      setNoticationType(null);
+    }, 3000);
   }
   
   const addPerson = (event) => {
@@ -43,6 +58,7 @@ const App = () => {
               setPersons(persons.map(element => (element.name === newName ? updatedPerson:element)))
               setNewName('')
               setNewNumber('')
+              showMessage(`${updatedPerson.name}'s phone number has been updated`) 
             })
 
         }
@@ -54,6 +70,7 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          showMessage(`Added ${personObject.name}`)          
         })
       
     }
@@ -65,10 +82,11 @@ const App = () => {
         .remove(person.id)
         .then(() => {
           setPersons(persons.filter(element => element.id !== person.id));
+          showMessage(`${person.name} has been removed from the phone book`)
         })
-    }
-    else{
-      alert(`Delete of ${person.name} was cancelled`)
+        .catch(error => {
+          showMessage(`Information of ${person.name} has already been removed from server`,false)
+        })
     }
   }
 
@@ -76,6 +94,7 @@ const App = () => {
     <div>
       
       <Title text="Phonebook"/>
+      <Notification message={notification} success={notificationType}/>
       <Filter searchName={searchName} handleChange={handleChange} setSearchName={setSearchName} />
       <Title text="add a new"/>
 
