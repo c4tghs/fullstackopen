@@ -16,6 +16,9 @@ const App = () => {
       .then(initialNotes => {        
         setNotes(initialNotes)   
       })
+      .catch(error =>{
+        console.error(error);
+      })
 
   }, [])
 

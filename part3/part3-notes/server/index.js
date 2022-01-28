@@ -1,7 +1,9 @@
-//const { request } = require('express')
 const express = require('express')
 const app = express()
+const cors = require('cors')
+app.use(cors)
 app.use(express.json())
+
 
 const requestLogger = (request, response,next) => {
 
@@ -42,6 +44,7 @@ app.get("/",(request, response) => {
 })
 
 app.get('/api/notes',(request, response) => {
+    console.log("Request received");
     response.json(notes)
 })
 
