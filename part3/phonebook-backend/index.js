@@ -1,10 +1,11 @@
 const { response } = require('express')
+const cors = require('cors')
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
 
+app.use(cors())
 app.use(express.json())
-
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 
 app.use(morgan(':method :url :status :req[content-length] - :response-time ms :body'));
@@ -83,7 +84,11 @@ app.get('/info',(request,response) => {
 })
 
 
-const PORT = 3001
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'))
+}
+
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
