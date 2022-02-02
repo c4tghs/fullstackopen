@@ -6,8 +6,6 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-
-
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 
 app.use(morgan(':method :url :status :req[content-length] - :response-time ms :body'));
@@ -84,6 +82,7 @@ app.get('/info',(request,response) => {
     let res = `<p>Phonebook has info for ${persons.length} people</p> <p>${currentDate.toUTCString()}</p>`
     response.send(res)
 })
+
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
