@@ -73,6 +73,9 @@ const App = () => {
           setNewNumber('')
           showMessage(`Added ${personObject.name}`)          
         })
+        .catch(error => {
+          showMessage(`${error.response.data.error}`,false)
+        })
       
     }
   }
