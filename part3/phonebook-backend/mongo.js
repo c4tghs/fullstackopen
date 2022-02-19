@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose')
 
 if (process.argv.length < 3) {
@@ -6,8 +7,8 @@ if (process.argv.length < 3) {
 }
 
 if (process.argv.length > 5){
-    console.log('Please provide maximum of 3 arguments: node mongo.js <password> <name> <number>')
-    process.exit(1)
+  console.log('Please provide maximum of 3 arguments: node mongo.js <password> <name> <number>')
+  process.exit(1)
 }
 
 const password = process.argv[2]
@@ -31,17 +32,17 @@ const person = new Person({
 })
 
 if(process.argv.length > 3){
-    person.save().then(result => {
-        console.log(`added ${name} number ${phoneNumber} to phonebook`)
-        mongoose.connection.close()
-    })
+  person.save().then(() => {
+    console.log(`added ${name} number ${phoneNumber} to phonebook`)
+    mongoose.connection.close()
+  })
 }
 else{
-    Person.find({}).then(result => {
-        console.log("phonebook:");
-        result.forEach(person => {
-            console.log(`${person.name} ${person.number}`);
-        })
-        mongoose.connection.close()
+  Person.find({}).then(result => {
+    console.log('phonebook:')
+    result.forEach(person => {
+      console.log(`${person.name} ${person.number}`)
     })
+    mongoose.connection.close()
+  })
 }
