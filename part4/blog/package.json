@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {    
-    "start":"cross-env NODE_ENV=production node index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
   },
@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
     "lodash": "^4.17.21",
     "mongoose": "^6.2.3"
   },
